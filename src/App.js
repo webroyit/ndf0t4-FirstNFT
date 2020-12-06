@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import Web3 from 'web3'
+import Web3 from 'web3';
 
 import './App.css';
+import Color from './abis/Color.json';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      account: '',
+      contract: null,
+      totalSupply: 0,
+      colors: []
+    }
+  }
   async componentWillMount() {
     await this.loadWeb3();
+    await this.loadBlockchainData();
   }
 
   async loadWeb3() {
@@ -21,6 +32,29 @@ class App extends Component {
     }
   }
 
+  async loadBlockchainData() {
+    const web3 = window.web3;
+
+    const accounts = await web3.eth.getAccounts();
+    this.setState({ account: accounts[0] });
+
+    const networkId = await web3.eth.net.getId();
+    const networkData = Color.networks[networkId];
+
+    if (networkData) {
+      const abi = Color.abi;
+      const address = networkData.address;
+
+      // Get a copy of the smart contract
+      const contract = new web3.eth.Contract(abi, address);
+      console.log(contract);
+    }
+    else {
+      window.alert('Smart contract not deployed to detected network.');
+    }
+    
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +67,7 @@ class App extends Component {
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-              <small className="text-white"><span id="account">0x0</span></small>
+              <small className="text-white"><span id="account">{this.state.account}</span></small>
             </li>
           </ul>
         </nav>
