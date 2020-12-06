@@ -47,7 +47,18 @@ class App extends Component {
 
       // Get a copy of the smart contract
       const contract = new web3.eth.Contract(abi, address);
-      console.log(contract);
+      this.setState({ contract: contract });
+
+      const totalSupply = await contract.methods.totalSupply().call();
+      this.setState({ totalSupply: totalSupply });
+
+      // Load Colors
+      for (let i = 1; i <= totalSupply; i++) {
+        const color = await contract.methods.colors(i - 1).call();
+        this.setState({ colors: [...this.state.colors, color] });
+      }
+
+      console.log(this.state.colors)
     }
     else {
       window.alert('Smart contract not deployed to detected network.');
