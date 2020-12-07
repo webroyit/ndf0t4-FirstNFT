@@ -84,7 +84,16 @@ class App extends Component {
         </nav>
 
         <div className="container-fluid mt-5">
-          <h1>Color Tokens</h1>
+          <div className="row text-center">
+            { this.state.colors.map((color, key) => {
+              return(
+                <div key={key} className="col-md-3 mb-3">
+                  <div className="token" style={{ backgroundColor: color }}></div>
+                  <div>{color}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     );
