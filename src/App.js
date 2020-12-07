@@ -84,6 +84,28 @@ class App extends Component {
         </nav>
 
         <div className="container-fluid mt-5">
+          <div className="row">
+            <main role="main" className="col-lg-12 d-flex text-center">
+              <div className="content mr-auto ml-auto">
+                <h1>Issue Token</h1>
+                <form>
+                  <input
+                    type='text'
+                    className='form-control mb-1'
+                    placeholder='e.g. #fc5c9c'
+                  />
+                  <input
+                    type='submit'
+                    className='btn btn-block btn-primary'
+                    value='MINT'
+                  />
+                </form>
+              </div>
+            </main>
+          </div>
+
+          <hr/>
+
           <div className="row text-center">
             { this.state.colors.map((color, key) => {
               return(
