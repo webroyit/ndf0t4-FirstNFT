@@ -1,4 +1,8 @@
 # First NFT
+First time creating NFT using ERC721. The template is from Dapp University youtube channel.
+
+## What it does?
+- You can mint NFT of colors
 
 ## Packages
 - `@openzeppelin/contracts` a library for secure smart contract development
